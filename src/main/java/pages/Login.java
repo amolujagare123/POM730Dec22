@@ -1,3 +1,5 @@
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +19,9 @@ public class Login {
     @FindBy(xpath = "//button[normalize-space()='Login']")
     WebElement btnLogin;
 
+    @FindBy (xpath = "//a[normalize-space()='I forgot my password']")
+    WebElement lnkForgotPass;
+
     public Login(WebDriver driver)
     {
         PageFactory.initElements(driver,this);
@@ -35,5 +40,10 @@ public class Login {
     public void clickBtnLogin()
     {
         btnLogin.click();
+    }
+
+    public void clickForgotPass()
+    {
+        lnkForgotPass.click();
     }
 }
