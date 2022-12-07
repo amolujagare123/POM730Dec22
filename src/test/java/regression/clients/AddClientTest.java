@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.Login;
 import pages.Menu;
+import pages.clients.AddClient;
 
 import java.io.IOException;
 
@@ -33,6 +34,27 @@ public class AddClientTest {
         Menu menu = new Menu(driver);
         menu.clickAddClient();
 
+        AddClient addClient = new AddClient(driver);
+
+        addClient.setLanguage("Turkish");
+        addClient.setCountry("Malaysia");
+        addClient.setGender("Male");
+
+        /*addClient.setClientName("Sagar");
+        addClient.setClientSurname("Motling");
+        addClient.setClientAddress1("xyz");
+        addClient.setClientAddress2("abc");
+        addClient.setClientcity("Mumbai");
+        addClient.setClientState("MH");
+        addClient.setClientZip("55454545");
+        addClient.setClientPhone("5454545");
+        addClient.setClientFax("8787878");
+        addClient.setClientMobile("995454554");
+        addClient.setClientEmail("sagar@gmail.com");
+        addClient.setClientWeb("www.sagar.com");
+        addClient.setClientVat("76767");
+        addClient.setClientTax("6532323");
+        addClient.clickBtnSave();*/
 
     }
 

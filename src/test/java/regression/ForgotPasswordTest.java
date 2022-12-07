@@ -6,14 +6,17 @@ import org.testng.annotations.Test;
 import pages.ForgotPassword;
 import pages.Login;
 
+import java.io.IOException;
+
+import static utility.ConfigReader.getUrl;
+
 public class ForgotPasswordTest {
 
     @Test
-    public void forgotPassTest()
-    {
+    public void forgotPassTest() throws IOException {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("http://[::1]/ip730/index.php/sessions/login");
+        driver.get(getUrl());
 
         Login login = new Login(driver);
         login.clickForgotPass();
