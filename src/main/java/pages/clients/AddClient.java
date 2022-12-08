@@ -1,11 +1,18 @@
 package pages.clients;
 
+import org.joda.time.DateTime;
+import org.joda.time.Months;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddClient {
 
@@ -176,6 +183,64 @@ public class AddClient {
         driver.findElement(By.xpath("//li[normalize-space()='"+gender+"']")).click();
     }
 
+
+    @FindBy (xpath = "//input[@name='client_birthdate']")
+    WebElement txtBirthDate;
+
+    public void setTxtBirthDate2(String setDateStr)
+    {
+       // txtBirthDate.sendKeys(setDateStr);
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('value','"+setDateStr+"')",txtBirthDate);
+    }
+
+    public void setTxtBirthDate(String setDateStr) throws ParseException {
+        txtBirthDate.click();
+
+        Date setDate = new SimpleDateFormat("dd/MM/yyyy").parse(setDateStr);
+
+        String currDateStr =
+                driver.findElement(By.xpath("//div[@class='datepicker-days']//th[@class='datepicker-switch']")).getText();
+
+        Date currDate =  new SimpleDateFormat("MMMM yyyy").parse(currDateStr);
+
+        System.out.println("setDate="+setDate);
+        System.out.println("currDate="+currDate);
+
+        int monthDiff = Months.monthsBetween(
+                new DateTime(currDate).withDayOfMonth(1),
+
+                new DateTime(setDate).withDayOfMonth(1)
+
+        ).getMonths();
+
+        System.out.println("monthDiff="+monthDiff);
+
+        boolean isFuture;
+
+        if (monthDiff>0)
+            isFuture = true;
+        else {
+            isFuture = false;
+            monthDiff = monthDiff * (-1);
+        }
+
+        for (int i=0;i<monthDiff;i++)
+        {
+            if (isFuture)
+                // click next
+             driver.findElement(By.xpath("//div[@class='datepicker-days']//th[@class='next']")).click();
+                else
+            // click prev
+                driver.findElement(By.xpath("//div[@class='datepicker-days']//th[@class='prev']")).click();
+        }
+
+        String setDay = new SimpleDateFormat("dd").format(setDate);
+        int setDayInt = Integer.parseInt(setDay);
+
+        driver.findElement(By.xpath("//td[normalize-space()='"+setDayInt+"' and @class='day']")).click();
+    }
 
     public AddClient(WebDriver driver)
     {

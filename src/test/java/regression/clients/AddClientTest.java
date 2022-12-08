@@ -9,6 +9,7 @@ import pages.Menu;
 import pages.clients.AddClient;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import static utility.ConfigReader.*;
 
@@ -29,24 +30,26 @@ public class AddClientTest {
     }
 
     @Test
-    public void addClientTest()
-    {
+    public void addClientTest() throws ParseException {
         Menu menu = new Menu(driver);
         menu.clickAddClient();
 
         AddClient addClient = new AddClient(driver);
 
-        addClient.setLanguage("Turkish");
-        addClient.setCountry("Malaysia");
-        addClient.setGender("Male");
 
-        /*addClient.setClientName("Sagar");
+        //addClient.setTxtBirthDate("12/05/1985");
+        addClient.setTxtBirthDate2("07/05/1981");
+
+        /* addClient.setClientName("Sagar");
         addClient.setClientSurname("Motling");
+        addClient.setLanguage("Turkish");
         addClient.setClientAddress1("xyz");
         addClient.setClientAddress2("abc");
         addClient.setClientcity("Mumbai");
         addClient.setClientState("MH");
         addClient.setClientZip("55454545");
+        addClient.setCountry("Malaysia");
+        addClient.setGender("Male");
         addClient.setClientPhone("5454545");
         addClient.setClientFax("8787878");
         addClient.setClientMobile("995454554");
