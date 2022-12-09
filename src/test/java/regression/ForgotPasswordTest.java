@@ -1,5 +1,6 @@
 package regression;
 
+import Util.OpenUrl;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
@@ -10,13 +11,10 @@ import java.io.IOException;
 
 import static utility.ConfigReader.getUrl;
 
-public class ForgotPasswordTest {
+public class ForgotPasswordTest extends OpenUrl {
 
     @Test
     public void forgotPassTest() throws IOException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(getUrl());
 
         Login login = new Login(driver);
         login.clickForgotPass();

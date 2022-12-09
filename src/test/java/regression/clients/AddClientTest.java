@@ -1,5 +1,6 @@
 package regression.clients;
 
+import Util.DoLogin;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeClass;
@@ -13,21 +14,8 @@ import java.text.ParseException;
 
 import static utility.ConfigReader.*;
 
-public class AddClientTest {
-    WebDriver driver;
-    @BeforeClass
-    public void doLogin() throws IOException {
+public class AddClientTest extends DoLogin {
 
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(getUrl());
-
-        Login login = new Login(driver);
-
-        login.setTxtUsername(getUsername());
-        login.setTxtPassword(getPassword());
-        login.clickBtnLogin();
-    }
 
     @Test
     public void addClientTest() throws ParseException {
@@ -36,11 +24,7 @@ public class AddClientTest {
 
         AddClient addClient = new AddClient(driver);
 
-
-        //addClient.setTxtBirthDate("12/05/1985");
-        addClient.setTxtBirthDate2("07/05/1981");
-
-        /* addClient.setClientName("Sagar");
+        addClient.setClientName("Sagar");
         addClient.setClientSurname("Motling");
         addClient.setLanguage("Turkish");
         addClient.setClientAddress1("xyz");
@@ -50,6 +34,7 @@ public class AddClientTest {
         addClient.setClientZip("55454545");
         addClient.setCountry("Malaysia");
         addClient.setGender("Male");
+        addClient.setTxtBirthDate2("07/05/1981");
         addClient.setClientPhone("5454545");
         addClient.setClientFax("8787878");
         addClient.setClientMobile("995454554");
@@ -57,7 +42,7 @@ public class AddClientTest {
         addClient.setClientWeb("www.sagar.com");
         addClient.setClientVat("76767");
         addClient.setClientTax("6532323");
-        addClient.clickBtnSave();*/
+        addClient.clickBtnSave();
 
     }
 
