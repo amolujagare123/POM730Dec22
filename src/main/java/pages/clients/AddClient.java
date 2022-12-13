@@ -180,6 +180,11 @@ public class AddClient {
     public static String getShortCodeCountry()
     {
         String[] splitList = countryId.split("-");
+
+        /*
+            int l = countryId.length();
+            return countryId.substring(l-2)
+            */
         return  splitList[splitList.length-1];
         //return  splitList[4];
     }

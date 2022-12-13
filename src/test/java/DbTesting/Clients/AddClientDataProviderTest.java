@@ -1,5 +1,6 @@
 package DbTesting.Clients;
 
+import Util.DbCon;
 import Util.DoLogin;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -13,7 +14,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static Util.Conversion.convertCountry;
+import static Util.Conversion.*;
 import static Util.MyDataProvider.getMyData;
 import static pages.clients.AddClient.getShortCodeCountry;
 
@@ -26,7 +27,7 @@ public class AddClientDataProviderTest extends DoLogin {
                               String state,String zip,String country,
                               String gender,String birthdate,String phone,
                               String fax,String mobile,String email,String web,
-                              String vat,String tax) throws ParseException, ClassNotFoundException, SQLException {
+                              String vat,String tax) throws Exception {
 
         Menu menu = new Menu(driver);
         menu.clickAddClient();
@@ -73,7 +74,7 @@ public class AddClientDataProviderTest extends DoLogin {
         expected.add(vat);
         expected.add(tax);
 
-        // 1. loading a driver
+       /* // 1. loading a driver
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         // 2. creating a connection
@@ -91,9 +92,13 @@ public class AddClientDataProviderTest extends DoLogin {
 
         ResultSet rs = st.executeQuery(sql);
 
+       */
+
+        DbCon dbCon = new DbCon();
+        String sql = "select * from ip_clients where client_name='"+name+"'";
+        ResultSet rs = dbCon.getRecords(sql);
+
         ArrayList<String> actual = new ArrayList<>();
-
-
         while (rs.next())
         {
             actual.add(rs.getString("client_name"));
@@ -111,9 +116,10 @@ public class AddClientDataProviderTest extends DoLogin {
             actual.add(fullFormCountry);*/
             actual.add(rs.getString("client_country"));
 
+            actual.add(getGender(rs.getString("client_gender")));
 
-            actual.add(rs.getString("client_gender"));
-            actual.add(rs.getString("client_birthdate"));
+            actual.add(convertDate(rs.getString("client_birthdate")));
+
             actual.add(rs.getString("client_phone"));
             actual.add(rs.getString("client_fax"));
             actual.add(rs.getString("client_mobile"));
